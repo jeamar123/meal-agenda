@@ -6,17 +6,37 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#0e94e9',
-        secondary: '#035da1',
-        header: {
-          border: '#e4e4e7',
+        light: {
+          primary: '#0e94e9',
+          secondary: '#035da1',
+          header: {
+            border: '#333',
+          },
+          card: {
+            border: '#333',
+          },
+          form: {
+            border: '#333',
+          },
+          body: '#f3f3f3',
+          text: '#333',
         },
-        card: {
-          border: '#d4d4d8',
-        },
-        form: {
-          border: '#a9a9af',
-        },
+
+        dark: {
+          primary: '#0e94e9',
+          secondary: '#035da1',
+          header: {
+            border: '#e4e4e7',
+          },
+          card: {
+            border: '#d4d4d8',
+          },
+          form: {
+            border: '#a9a9af',
+          },
+          body: '#0f172a',
+          text: '#cbd5e1',
+        }
       },
       fontFamily: {
         sans: [
