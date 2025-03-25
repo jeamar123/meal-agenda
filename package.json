@@ -6,19 +6,19 @@
         "build": "vite build"
     },
     "devDependencies": {
-        "@headlessui/vue": "^1.7.19",
-        "@heroicons/vue": "^2.1.1",
-        "@vitejs/plugin-vue": "^5.0.4",
-        "autoprefixer": "^10.4.17",
-        "axios": "^1.6.7",
-        "date-fns": "^3.3.1",
-        "laravel-vite-plugin": "^1.0.0",
-        "postcss": "^8.4.35",
-        "tailwindcss": "^3.4.1",
-        "vite": "^5.0.0",
-        "vue": "^3.4.21",
-        "vue-router": "4",
-        "vue3-slider": "^1.9.0",
+        "@headlessui/vue": "^1.7.23",
+        "@heroicons/vue": "^2.2.0",
+        "@vitejs/plugin-vue": "^5.2.3",
+        "autoprefixer": "^10.4.21",
+        "axios": "^1.8.4",
+        "date-fns": "^4.1.0",
+        "laravel-vite-plugin": "^1.2.0",
+        "postcss": "^8.5.3",
+        "tailwindcss": "^4.0.16",
+        "vite": "^6.2.3",
+        "vue": "^3.5.13",
+        "vue-router": "4.5.0",
+        "vue3-slider": "^1.10.1",
         "vuex": "^4.1.0"
     }
 }
