@@ -1,0 +1,84 @@
+.table-container {
+  @apply rounded-md;
+}
+
+.table {
+  @apply text-sm border-separate border-spacing-0;
+  th {
+    @apply first:text-left text-center text-[#cbd5e1] bg-[#334155] text-sm font-semibold whitespace-nowrap py-3 px-6 first:rounded-tl-md last:rounded-tr-md border-b border-[#334155];
+  }
+  tbody {
+    tr {
+      td {
+        @apply first:text-left text-center py-3 px-6 bg-[#1e293b] antialiased text-sm whitespace-nowrap relative h-[44px] border-b border-[#334155];
+      }
+
+      &:not(.empty-table):last-child {
+        td {
+          @apply first:rounded-bl-md last:rounded-br-md border-none;
+        }
+      }
+    }
+  }
+}
+
+.status-badge {
+  @apply rounded-md text-white py-1 px-2 w-max text-center text-xs capitalize;
+}
+
+.status-badge-color {
+  &.invited {
+    @apply border-gray-400 text-gray-400;
+  }
+  &.confirmed, &.active {
+    @apply border-green-700 text-green-700;
+  }
+  &.disabled {
+    @apply border-gray-400 text-gray-400;
+  }
+
+  &.declined,
+  &.payment_failed{
+    @apply border-red-700 text-red-400;
+  }
+
+  &.cancelled,
+  &.expired,
+  &.ls_expired_for_cancellation {
+    @apply border-red-400 text-red-400;
+  }
+
+  &.background{
+    &.active,
+    &.verified{
+      @apply bg-green-700 !text-white;
+    }
+
+    &.pending {
+      @apply bg-gray-400 !text-white;
+    }
+  }
+}
+
+.status-text-color {
+  &.invited {
+    @apply text-gray-600;
+  }
+  &.confirmed, &.active {
+    @apply text-green-600;
+  }
+  &.disabled {
+    @apply text-gray-400;
+  }
+  
+  &.declined,
+  &.payment_failed{
+    @apply text-red-500;
+  }
+
+  &.cancelled,
+  &.expired,
+  &.ls_expired_for_cancellation {
+    @apply text-red-400;
+  }
+}

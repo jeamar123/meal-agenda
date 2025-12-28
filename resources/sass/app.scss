@@ -1,23 +1,44 @@
-@import 'tailwind';
-@import 'fonts';
+@import url('@vuepic/vue-datepicker/dist/main.css');
+
+@import url('_tailwind.scss');
+@import url('_fonts.scss');
+@import url('components/_form.scss');
 
 html, body{
   scroll-behavior: smooth;
 }
 
-*::-webkit-scrollbar{
-  width: 4px;
+.app-container{
+  @apply bg-neutral-900 text-neutral-100;
 }
-*::-webkit-scrollbar-thumb{
-  background-color: #8E934E;
-  border: 2px solid #8E934E;
-  border-radius: 4px;
-  /* border: 1px solid #f0f0f0; */
+
+/* Hide by default */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
 }
-*::-webkit-scrollbar-track{
-  /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
-  /* background-color: #f0f0f0; */
-  background-color: transparent;
+
+/* Show when hovering or scrolling */
+*:hover::-webkit-scrollbar,
+*:active::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+/* Scrollbar track */
+*:hover::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Scrollbar thumb */
+*:hover::-webkit-scrollbar-thumb {
+    background-color: #999;
+    border-radius: 6px;
+}
+
+/* Thumb hover effect */
+*:hover::-webkit-scrollbar-thumb:hover {
+    background-color: #666;
 }
 
 @media (max-width: 768px) { 

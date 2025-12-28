@@ -1,20 +1,20 @@
 <template>
-  <section class="container py-4">
+  <section class="container py-10 lg:py-20">
     <AppHead title="Login" />
 
-    <div class="py-14">
+    <!-- <div class="py-14">
       <img
         :src="'/images/venuedapp-logo-web-white.png'"
         alt="venued.app logo"
         class="w-[278px] mx-auto"
       />
-    </div>
+    </div> -->
 
-    <h1 class="text-center mt-2 text-2xl font-semibold">Admin</h1>
+    <!-- <h1 class="text-center mt-2 text-2xl font-semibold">Admin</h1> -->
     <p class="text-center mt-3">Input email and password in order to log in.</p>
 
     <div class="mt-4 w-[370px] mx-auto">
-      <form @submit.prevent="false">
+      <form @submit.prevent="form.post(useRoute('user.login'))">
         <div class="grid gap-y-2">
           <TextInput
             v-model="form.email"
@@ -36,7 +36,7 @@
 
         <small
           v-if="form.errors.message"
-          class="text-red-700 mt-2 block"
+          class="text-gray-700 mt-2 block"
           v-text="form.errors.message"
         />
 

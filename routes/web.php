@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Modules\User\Http\Controllers\Web\LoginPage;
 use App\Modules\User\Http\Controllers\Web\LoginController;
+use App\Http\Controllers\CalendarPage;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,5 +24,9 @@ use App\Modules\User\Http\Controllers\Web\LoginController;
 
 Route::group(['middleware' => ['guest']], function () {
   Route::get('/login', LoginPage::class)->name('login.show');
-  Route::post('/login', LoginController::class)->name('admin.login');
+  Route::post('/login', LoginController::class)->name('user.login');
 });
+
+// Route::group(['middleware' => ['auth']], function () {
+    Route::get('/', CalendarPage::class)->name('calendar.index');
+// });

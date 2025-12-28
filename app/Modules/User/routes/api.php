@@ -6,7 +6,7 @@ use App\Modules\User\Http\Controllers\GetUserController;
 use App\Modules\User\Http\Controllers\CreateUserController;
 use App\Modules\User\Http\Controllers\UpdateUserController;
 use App\Modules\User\Http\Controllers\DeleteUserController;
-use App\Modules\User\Http\Controllers\LoginUserController;
+// use App\Modules\User\Http\Controllers\LoginUserController;
 use App\Modules\User\Http\Controllers\CurrentUserController;
 use App\Modules\User\Http\Controllers\ImportUserController;
 
@@ -39,4 +39,4 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 
 
-Route::post('/login', LoginUserController::class)->name('user.login');
+// Route::post('/login', LoginUserController::class)->name('user.login');

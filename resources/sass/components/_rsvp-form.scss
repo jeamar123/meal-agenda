@@ -1,0 +1,56 @@
+.rsvp-container {
+  @apply overflow-y-auto;
+  .rsvp-wrapper {
+    @apply p-4 border border-gray-200 rounded-md bg-white;
+  }
+  form {
+    input[type='text'] {
+      @apply w-full
+              read-only:border-slate-200
+              read-only:text-gray-500
+              read-only:cursor-not-allowed
+              autofill:!bg-white;
+    }
+
+    .form-label {
+      @apply text-sm font-medium text-slate-400 block mb-2;
+    }
+
+    .form-element {
+      @apply border border-slate-500
+        block
+        rounded-md
+        py-2
+        px-3
+        outline-none
+        text-base
+        text-slate-500
+        transition-all
+        leading-6;
+
+      &-focus {
+        @apply focus:border-slate-400;
+      }
+      &-error {
+        @apply border-red-500;
+      }
+
+      &.form-checkbox {
+        @apply p-0 relative shrink-0 appearance-none bg-white w-5 h-5 checked:bg-[var(--primary-color)] checked:border-[var(--primary-color)] focus:outline-none focus:ring-offset-0 focus:ring-2 focus:ring-blue-100 !cursor-pointer;
+      }
+    }
+
+    .select-dropdown-options {
+      @apply top-11;
+    }
+
+    .form-button {
+      @apply bg-[var(--primary-color)] border-[var(--primary-color)] text-[var(--button-font-color)] inline-block py-2 px-3 rounded-md border text-sm lg:text-base hover:opacity-90 outline-none w-full;
+
+      &.disabled,
+      &:disabled {
+        @apply cursor-not-allowed opacity-70;
+      }
+    }
+  }
+}

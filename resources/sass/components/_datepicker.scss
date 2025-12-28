@@ -1,0 +1,28 @@
+.dp__menu * {
+  @apply font-sans text-xs;
+}
+
+.dp__main {
+  display: block;
+}
+.dp__overlay {
+  width: 100% !important;
+}
+.dp__selection_grid_header {
+  padding: 0px 12px;
+}
+.dp--menu--inner-stretched {
+  padding: 6px 0px;
+}
+.dp__menu_inner {
+  padding: 12px 16px;
+}
+.dp__cell_inner {
+  height: 30px;
+}
+.dp__input {
+  background-color: inherit !important;
+  font-family: inherit !important;
+  color: inherit !important;
+  font-size: inherit !important;
+}
