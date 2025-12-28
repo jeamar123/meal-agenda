@@ -25,8 +25,6 @@ class LoginController
             $request->input('remember', false)
         );
 
-        dd($user);
-        
         if(!$user){
             throw ValidationException::withMessages([
                 'password' => __('The provided credentials do not match our records.'),

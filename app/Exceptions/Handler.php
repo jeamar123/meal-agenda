@@ -61,15 +61,6 @@ class Handler extends ExceptionHandler
     #[Override]
     public function render(mixed $request, Throwable $e): RedirectResponse|Response
     {
-        if ($e instanceof ValidationException) {
-            if ($request->header('X-Inertia')) {
-                // Let Inertia handle it automatically
-                throw $e; // or return parent::render($request, $e);
-            }
-
-            return parent::render($request, $e);
-        }
-        
         $response = parent::render($request, $e);
 
         if ($this->app->isLocal() && $response->getStatusCode() === Response::HTTP_INTERNAL_SERVER_ERROR) {
