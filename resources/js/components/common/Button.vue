@@ -1,29 +1,48 @@
 <template>
   <component
     :is="as"
-    :class="[getClasses()]" :disabled="variant === 'disabled' || disabled">
+    :type="type"
+    :class="[
+      getClasses(),
+      isLoading && '!flex items-center justify-center gap-x-2',
+      disabled && 'cursor-not-allowed !opacity-70',
+    ]"
+    :disabled="variant === 'disabled' || disabled"
+  >
     <slot />
+
+    <LoadingIcon v-if="isLoading" class="text-white fill-white w-5" />
   </component>
 </template>
 
-<script setup lang="ts">
+<script setup>
+import { LoadingIcon } from '@/Components/common'
 const props = defineProps({
   as: {
-    type: String,
-    default: 'button' // button, link, router-link
+    type: [String, Object],
+    default: 'button', // button, a, Link
   },
   variant: {
     type: String,
-    default: 'primary' // primary, secondary, outline, disabled
+    default: 'primary', // primary, secondary, outline, disabled
+  },
+  type: {
+    type: String,
+    default: 'button', // button, submit
   },
   disabled: {
     type: Boolean,
-    default: () => false
-  }
+    default: () => false,
+  },
+  isLoading: {
+    type: Boolean,
+    default: () => false,
+  },
 })
 
 const getClasses = () => {
-  let defaultClasses = 'inline-block py-3 px-6 rounded-lg border text-sm hover:opacity-90'
+  let defaultClasses =
+    'inline-block py-2 px-4 rounded-md border text-sm font-semibold hover:opacity-90 outline-none hover-transition'
   let classes = ''
 
   switch (props.variant) {
@@ -31,10 +50,13 @@ const getClasses = () => {
       classes = 'bg-secondary border-secondary text-white'
       break
     case 'outline':
-      classes = 'border-2 border-primary text-primary'
+      classes = 'border border-primary text-primary'
       break
-    case 'disabled':
-      classes = 'bg-[#256da1] border-[#256da1] text-white cursor-not-allowed opacity-70 hover:opacity-70'
+    case 'plain':
+      classes = 'border border-gray-400 text-gray-500'
+      break
+    case 'danger':
+      classes = 'border border-[#dc3545] text-[#dc3545]'
       break
     case 'blank':
       classes = 'border-none !p-2'

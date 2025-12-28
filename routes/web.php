@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Modules\User\Http\Controllers\Web\LoginPage;
+use App\Modules\User\Http\Controllers\Web\LoginController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,10 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('app');
+// Route::group(['middleware' => ['auth']], function () {
+//   Route::get('/', DashboardPage::class)->name('dashboard.index');
+//   Route::get('/logout', LogoutController::class)->name('admin.logout');
 // });
 
-Route::get('/{vue_capture?}', function () {
-    return view('app');
-})->where('vue_capture', '[\/\w\.-]*');
+Route::group(['middleware' => ['guest']], function () {
+  Route::get('/login', LoginPage::class)->name('login.show');
+  Route::post('/login', LoginController::class)->name('admin.login');
+});

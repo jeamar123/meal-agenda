@@ -1,13 +1,19 @@
 <template>
   <div>
     <div :class="wrapperClass">
-      <label :for="id" class="relative flex items-start gap-x-2 leading-[1.3]">
+      <label
+        :for="id"
+        class="relative flex items-start gap-x-2 leading-[1.3] w-max cursor-pointer"
+        :class="labelClass"
+      >
         <input
-          type="checkbox"
           :id="id"
-          class="relative peer shrink-0 appearance-none w-5 h-5 border-2 border-form-border rounded-sm bg-white checked:bg-primary checked:border-primary focus:outline-none focus:ring-offset-0 focus:ring-2 focus:ring-blue-100 transition-all"
+          type="checkbox"
+          class="peer form-element form-checkbox"
+          :name="id"
           :class="[!readOnly ? '' : '', errors.length ? '' : '', inputClass]"
           :readonly="readOnly"
+          :checked="modelValue"
           @change="({ target }) => emit('update:model-value', target.checked)"
         />
         <svg
@@ -28,7 +34,7 @@
     </div>
     <template v-if="errors.length">
       <div class="mt-1">
-        <p v-for="error in errors" :key="error" class="text-red-500 block text-xs">
+        <p v-for="error in errors" :key="error" class="form-error">
           {{ error }}
         </p>
       </div>
@@ -36,44 +42,44 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 defineProps({
   id: {
     type: String,
-    default: ''
+    default: '',
   },
   label: {
     type: String,
-    default: ''
+    default: '',
   },
   modelValue: {
-    type: [String, Number],
-    default: ''
+    type: [String, Number, Boolean],
+    default: '',
   },
   readOnly: {
     type: Boolean,
-    default: () => false
+    default: () => false,
   },
   required: {
     type: Boolean,
-    default: () => false
+    default: () => false,
   },
   errors: {
     type: Array,
-    default: () => []
+    default: () => [],
   },
   wrapperClass: {
     type: [String, Object, Array],
-    default: ''
+    default: '',
   },
   labelClass: {
     type: [String, Object, Array],
-    default: ''
+    default: '',
   },
   inputClass: {
     type: [String, Object, Array],
-    default: ''
-  }
+    default: '',
+  },
 })
 
 const emit = defineEmits(['update:model-value'])

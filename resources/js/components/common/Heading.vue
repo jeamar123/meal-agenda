@@ -4,12 +4,12 @@
   </component>
 </template>
 
-<script setup lang="ts">
+<script setup>
 const props = defineProps({
   as: {
     type: String,
-    default: 'h1'
-  }
+    default: 'h1',
+  },
 })
 
 const getClasses = () => {

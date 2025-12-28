@@ -3,7 +3,7 @@
     <div :class="wrapperClass">
       <label
         v-if="label"
-        class="text-sm block mb-1"
+        class="form-label"
         :class="[{ 'text-gray-500 cursor-not-allowed': readOnly }, labelClass]"
         :for="id"
         >{{ label }}<span v-if="required">*</span></label
@@ -14,76 +14,74 @@
         :value="modelValue"
         :type="type"
         :placeholder="placeholder"
-        class="w-full rounded border-2 border-form-border p-2 outline-none text-sm read-only:border-gray-200 read-only:text-gray-500 read-only:cursor-not-allowed block autofill:!bg-white transition-all bg-slate-100 text-slate-800"
+        class="form-element w-full"
         :class="[
           !readOnly ? 'focus:border-gray-900' : '',
-          errors.length ? 'border-red-500' : '',
-          inputClass
+          error ? 'form-element-error border-red-500' : '',
+          inputClass,
         ]"
+        min="0"
         :readonly="readOnly"
         @input="(e) => emit('update:model-value', e.target.value)"
       />
     </div>
-    <template v-if="errors.length">
-      <div class="mt-1">
-        <p v-for="error in errors" :key="error" class="text-red-500 block text-xs">
-          {{ error }}
-        </p>
-      </div>
-    </template>
+
+    <p v-if="error" class="mt-1 form-error">
+      {{ error }}
+    </p>
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 defineProps({
   as: {
     type: String,
-    default: 'input' // input, textarea
+    default: 'input', // input, textarea
   },
   id: {
     type: String,
-    default: ''
+    default: '',
   },
   label: {
     type: String,
-    default: ''
+    default: '',
   },
   type: {
     type: String,
-    default: 'text' // text, number, date, password
+    default: 'text', // text, number, date, password
   },
   modelValue: {
     type: [String, Number],
-    default: ''
+    default: '',
   },
   placeholder: {
     type: String,
-    default: ''
+    default: '',
   },
   readOnly: {
     type: Boolean,
-    default: () => false
+    default: () => false,
   },
   required: {
     type: Boolean,
-    default: () => false
+    default: () => false,
   },
-  errors: {
-    type: Array,
-    default: () => []
+  error: {
+    type: String,
+    default: '',
   },
   wrapperClass: {
     type: [String, Object, Array],
-    default: ''
+    default: '',
   },
   labelClass: {
     type: [String, Object, Array],
-    default: ''
+    default: '',
   },
   inputClass: {
     type: [String, Object, Array],
-    default: ''
-  }
+    default: '',
+  },
 })
 
 const emit = defineEmits(['update:model-value'])

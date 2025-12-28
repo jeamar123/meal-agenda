@@ -1,9 +1,28 @@
-import { format, formatDistance, intervalToDuration, differenceInDays } from 'date-fns'
+import {
+  format,
+  formatDistance,
+  intervalToDuration,
+  differenceInDays,
+} from 'date-fns'
+import { formatInTimeZone } from 'date-fns-tz'
+
+// Get the user's local timezone from the browser
+const localTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 
 export const formatDate = (date, formatStr) => {
-  let formatString = formatStr  ? formatStr : 'yyyy-MM-dd'
+  let formatString = formatStr ? formatStr : 'yyyy-MM-dd'
 
-  return format(new Date(date), formatString);
+  return format(new Date(date), formatString)
+}
+
+export const formatDateWithTimezone = (
+  date,
+  formatStr,
+  timezone = localTimezone,
+) => {
+  let formatString = formatStr ? formatStr : 'yyyy-MM-dd'
+
+  return formatInTimeZone(new Date(date), timezone, formatString)
 }
 
 export const formatDateFromNow = (date) => {
@@ -12,14 +31,11 @@ export const formatDateFromNow = (date) => {
 
 export const countdownToDate = (endDate) => {
   return intervalToDuration({
-      start: new Date(), 
-      end: new Date(endDate),
+    start: new Date(),
+    end: new Date(endDate),
   })
 }
 
 export const daysToDate = (endDate) => {
-  return differenceInDays(
-    new Date(endDate),
-    new Date(), 
-  )
+  return differenceInDays(new Date(endDate), new Date())
 }

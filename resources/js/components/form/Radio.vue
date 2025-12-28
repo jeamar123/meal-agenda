@@ -1,10 +1,17 @@
 <template>
   <div>
     <div :class="wrapperClass">
+      <label
+        v-if="label"
+        class="form-label"
+        :class="[{ 'text-gray-500 cursor-not-allowed': readOnly }, labelClass]"
+        :for="id"
+        >{{ label }}<span v-if="required">*</span></label
+      >
       <label :for="id" class="relative flex items-start gap-x-2 leading-[1.3]">
         <input
-          type="radio"
           :id="id"
+          type="radio"
           :name="name"
           class="shrink-0 peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-form-border transition-all checked:border-primary focus:outline-none focus:ring-offset-0 focus:ring-2 focus:ring-blue-100"
           :class="[!readOnly ? '' : '', errors.length ? '' : '', inputClass]"
@@ -30,7 +37,7 @@
     </div>
     <template v-if="errors.length">
       <div class="mt-1">
-        <p v-for="error in errors" :key="error" class="text-red-500 block text-xs">
+        <p v-for="error in errors" :key="error" class="form-error">
           {{ error }}
         </p>
       </div>
@@ -38,48 +45,48 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 defineProps({
   id: {
     type: String,
-    default: ''
+    default: '',
   },
   label: {
     type: String,
-    default: ''
+    default: '',
   },
   name: {
     type: String,
-    default: ''
+    default: '',
   },
   modelValue: {
     type: [String, Number],
-    default: ''
+    default: '',
   },
   readOnly: {
     type: Boolean,
-    default: () => false
+    default: () => false,
   },
   required: {
     type: Boolean,
-    default: () => false
+    default: () => false,
   },
   errors: {
     type: Array,
-    default: () => []
+    default: () => [],
   },
   wrapperClass: {
     type: [String, Object, Array],
-    default: ''
+    default: '',
   },
   labelClass: {
     type: [String, Object, Array],
-    default: ''
+    default: '',
   },
   inputClass: {
     type: [String, Object, Array],
-    default: ''
-  }
+    default: '',
+  },
 })
 
 const emit = defineEmits(['update:model-value'])
