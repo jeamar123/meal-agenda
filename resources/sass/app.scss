@@ -8,8 +8,34 @@ html, body{
   scroll-behavior: smooth;
 }
 
+// Background (body):        #F7F8F5
+// Card / surface:           #FFFFFF
+// Border / divider:         #E5E7EB
+
+// Primary Accent (Sage Green)
+// Primary:                  #7FA37A
+// Primary hover:            #6B8F67
+// Primary subtle bg:        #E6EFE5
+
+// Secondary:                #EADBC8
+// Secondary hover:          #DCC9AF
+
+// TExt colors
+// Text primary:             #1F2937
+// Text secondary:           #4B5563
+// Muted text:               #6B7280
+// Disabled text:            #9CA3AF
+
+// Status colors
+// Success:                  #4CAF50
+// Warning:                  #E0A800
+// Error:                    #DC2626
+// Info:                     #2563EB
+
 .app-container{
-  @apply bg-neutral-900 text-neutral-100;
+  // @apply bg-neutral-900 text-neutral-100;
+  background-color: #F7F8F5;
+  color: #1F2937;
 }
 
 /* Hide by default */

@@ -27,6 +27,6 @@ Route::group(['middleware' => ['guest']], function () {
   Route::post('/login', LoginController::class)->name('user.login');
 });
 
-// Route::group(['middleware' => ['auth']], function () {
-    Route::get('/', CalendarPage::class)->name('calendar.index');
-// });
+Route::group(['middleware' => ['auth']], function () {
+  Route::get('/', CalendarPage::class)->name('calendar.index');
+});

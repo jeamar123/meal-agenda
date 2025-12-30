@@ -11,6 +11,6 @@ class CalendarPage
 {
     public function __invoke(): Response
     {
-        return Inertia::render('MealCalendar');
+        return Inertia::render('Home');
     }
 }

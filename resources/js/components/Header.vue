@@ -1,72 +1,124 @@
 <template>
-  <header class="sticky top-0 left-0 z-40 w-full border-b border-slate-50/[0.06] text-white">
-    <Disclosure as="nav" v-slot="{ open }">
-      <div class="container flex items-center justify-between gap-x-2 h-14">
-        <div class="flex items-center gap-x-2">
-          <div class="relative lg:hidden">
-            <span class="hidden text-base font-semibold">Logo</span>
-
-            <div class="absolute inset-y-0 left-0 flex items-center lg:hidden">
-              <!-- Mobile menu button-->
-              <DisclosureButton
-                class="relative inline-flex items-center justify-center rounded p-2 text-[#27272a] hover:bg-primary hover:text-white outline-none border border-gray-400"
-              >
-                <Bars3Icon v-if="!open" class="block h-5 w-5" aria-hidden="true" />
-                <XMarkIcon v-else class="block h-5 w-5" aria-hidden="true" />
-              </DisclosureButton>
-            </div>
-          </div>
-
-          <div class="hidden lg:block">
-            <ul class="flex items-center gap-x-5">
-              <li v-for="{ label, routeName } in menuItems" :key="label" class="">
-                <router-link
-                  :to="{ name: routeName }"
-                  class="transition duration-[0.5s] ease-in-out"
-                  :class="
-                    $route.name === routeName
-                      ? 'underline text-white'
-                      : 'text-gray-400 hover:text-white'
-                  "
-                  >{{ label }}</router-link
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
+  <header class="sticky top-0 left-0 z-40 w-full border-b border-border bg-surface">
+    <nav class="container flex items-center justify-between gap-x-2 h-14">
+      <!-- Mobile Menu Button -->
+      <div class="lg:hidden">
+        <button
+          @click="isMobileMenuOpen = true"
+          class="h-12 w-12 inline-flex items-center justify-center rounded border border-border hover:bg-primary hover:border-primary transition-colors duration-200"
+          aria-label="Open menu"
+        >
+          <Icon name="Bars3Icon" class="h-5 w-5" aria-hidden="true" />
+        </button>
       </div>
 
-      <DisclosurePanel class="lg:hidden">
-        <DisclosureButton
-          v-for="{ label, routeName } in menuItems"
-          :key="label"
-          as="button"
-          @click="$router.push({ name: routeName })"
-          :class="[
-            routeName === $route.name ? 'underline' : 'text-[#71717a] hover:underline',
-            'block px-4 lg:px-6 py-3 text-sm w-full text-left'
-          ]"
-        >
-          {{ label }}
-        </DisclosureButton>
-      </DisclosurePanel>
-    </Disclosure>
+      <!-- Desktop Navigation -->
+      <div class="hidden lg:block">
+        <nav>
+          <ul class="flex items-center gap-x-5 ">
+            <li
+              v-for="item in navigationItems"
+              :key="item.label"
+            >
+              <Link
+                class="flex items-center gap-x-3 py-2 px-3 rounded transition-all duration-200 hover:bg-primary/10"
+                :class="[
+                  $page.component === item.component
+                    ? 'bg-primary/5 border-l-2 border-primary font-medium'
+                    : '',
+                ]"
+                :href="useRoute(item.route)"
+              >
+                <!-- <Icon v-if="item.icon" :name="item.icon" class="w-5" /> -->
+                <span>{{ item.label }}</span>
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </nav>
+
+    <!-- Mobile Drawer -->
+    <MobileDrawer :show="isMobileMenuOpen" @close="isMobileMenuOpen = false">
+      <template #header>
+        <div class="flex items-center justify-between px-4 py-3">
+          <span class="text-lg font-semibold text-text-primary">Menu</span>
+          <button
+            @click="isMobileMenuOpen = false"
+            class="h-10 w-10 inline-flex items-center justify-center rounded hover:bg-secondary transition-colors duration-200"
+            aria-label="Close menu"
+          >
+            <Icon name="XMarkIcon" class="h-5 w-5" />
+          </button>
+        </div>
+      </template>
+
+      <!-- Nav Items -->
+      <nav class="py-4">
+        <ul class="space-y-1">
+          <li v-for="item in navigationItems" :key="item.label">
+            <button
+              @click="handleNavClick(item.route)"
+              class="w-full text-left min-h-[48px] px-4 py-3 rounded transition-all duration-200 hover:bg-secondary"
+              :class="[
+                $page.component === item.component
+                  ? 'bg-primary text-white font-medium'
+                  : 'text-text-primary',
+              ]"
+            >
+              <span class="flex items-center gap-x-3">
+                {{ item.label }}
+                <span
+                  v-if="item.badge"
+                  class="ml-auto bg-error text-white text-xs font-bold px-2 py-0.5 rounded-full"
+                >
+                  {{ item.badge }}
+                </span>
+              </span>
+            </button>
+            <!-- Divider -->
+            <!-- <hr v-if="item.divider" class="my-2 border-border" /> -->
+          </li>
+        </ul>
+      </nav>
+    </MobileDrawer>
   </header>
 </template>
 
-<script setup lang="ts">
-import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
-import { useRouter } from 'vue-router'
-import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
+<script setup>
+import { ref, computed } from 'vue'
+import { router, Link } from '@inertiajs/vue3'
+import { Icon } from '@/Components/common'
+import MobileDrawer from '@/Components/MobileDrawer.vue'
+import { useRoute } from '@/composables/route'
+import { useNavigation } from '@/composables/navigation'
 
-const router = useRouter()
-const excludedRoutes = ['Auth', 'Login']
-const menuItems = router.getRoutes().reduce((arr, { name }) => {
-  if (!excludedRoutes.includes(name))
-    arr.push({
-      label: name,
-      routeName: name
-    })
-  return arr
-}, [])
+// Props
+const props = defineProps({
+  routes: {
+    type: Array,
+    default: null,
+  },
+})
+
+// State
+const isMobileMenuOpen = ref(false)
+
+// Computed
+const navigationItems = computed(() => {
+  if (props.routes) return props.routes
+
+  const nav = useNavigation()
+  // Flatten main and secondary into single array
+  return [...nav.main, ...nav.secondary]
+})
+
+// Methods
+function handleNavClick(route) {
+  isMobileMenuOpen.value = false
+  // Small delay to allow close animation
+  setTimeout(() => {
+    router.get(useRoute(route))
+  }, 150)
+}
 </script>
