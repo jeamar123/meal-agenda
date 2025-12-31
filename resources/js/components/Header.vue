@@ -5,7 +5,7 @@
       <div class="lg:hidden">
         <button
           @click="isMobileMenuOpen = true"
-          class="h-12 w-12 inline-flex items-center justify-center rounded border border-border hover:bg-primary hover:border-primary transition-colors duration-200"
+          class="h-10 w-10 inline-flex items-center justify-center rounded border border-border hover:bg-primary hover:border-primary transition-colors duration-200"
           aria-label="Open menu"
         >
           <Icon name="Bars3Icon" class="h-5 w-5" aria-hidden="true" />
@@ -15,16 +15,16 @@
       <!-- Desktop Navigation -->
       <div class="hidden lg:block">
         <nav>
-          <ul class="flex items-center gap-x-5 ">
+          <ul class="flex items-center gap-x-5">
             <li
               v-for="item in navigationItems"
               :key="item.label"
             >
               <Link
-                class="flex items-center gap-x-3 py-2 px-3 rounded transition-all duration-200 hover:bg-primary/10"
+                class="flex items-center gap-x-3 py-2 px-4 rounded transition-all duration-200 hover:bg-primary hover:text-white"
                 :class="[
                   $page.component === item.component
-                    ? 'bg-primary/5 border-l-2 border-primary font-medium'
+                    ? 'bg-primary border-l-2 border-primary text-white'
                     : '',
                 ]"
                 :href="useRoute(item.route)"
@@ -42,7 +42,7 @@
     <MobileDrawer :show="isMobileMenuOpen" @close="isMobileMenuOpen = false">
       <template #header>
         <div class="flex items-center justify-between px-4 py-3">
-          <span class="text-lg font-semibold text-text-primary">Menu</span>
+          <span class="text-lg text-text-primary">Menu</span>
           <button
             @click="isMobileMenuOpen = false"
             class="h-10 w-10 inline-flex items-center justify-center rounded hover:bg-secondary transition-colors duration-200"
@@ -54,12 +54,12 @@
       </template>
 
       <!-- Nav Items -->
-      <nav class="py-4">
-        <ul class="space-y-1">
+      <nav>
+        <ul>
           <li v-for="item in navigationItems" :key="item.label">
             <button
               @click="handleNavClick(item.route)"
-              class="w-full text-left min-h-[48px] px-4 py-3 rounded transition-all duration-200 hover:bg-secondary"
+              class="w-full text-left min-h-[48px] px-4 py-3 transition-all duration-200 hover:bg-primary hover:text-white"
               :class="[
                 $page.component === item.component
                   ? 'bg-primary text-white font-medium'

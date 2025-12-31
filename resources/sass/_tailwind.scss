@@ -15,29 +15,89 @@
 }
 
 @theme {
-  /* Brand Colors */
-  --color-primary: #8FB339;
-  --color-primary-hover: #7AA12E;
+  /* ========================================
+     LIGHT MODE COLORS
+   ======================================== */
 
-  --color-secondary: #E6DCCF;
-  --color-secondary-hover: #D6CAB9;
+/* Primary Brand - Vibrant Sage Green */
+--color-primary: #7CB342;
+--color-primary-hover: #689F38;
+--color-primary-light: #AED581;
+--color-primary-dark: #558B2F;
 
-  /* Layout */
-  --color-bg: #F7F8F5;
-  --color-surface: #FFFFFF;
-  --color-border: #E5E7EB;
+/* Secondary - Soft Cream */
+--color-secondary: #FFF8E1;
+--color-secondary-hover: #FFECB3;
+--color-secondary-light: #FFFDE7;
+--color-secondary-dark: #F5F3D7;
 
-  /* Text */
-  --color-text-primary: #1F2937;
-  --color-text-secondary: #4B5563;
-  --color-text-muted: #6B7280;
-  --color-text-disabled: #9CA3AF;
+/* Accent Colors */
+--color-accent-tomato: #EF5350;
+--color-accent-carrot: #FFA726;
+--color-accent-blueberry: #42A5F5;
+--color-accent-lemon: #FFEE58;
+--color-accent-eggplant: #AB47BC;
 
-  /* States */
-  --color-success: #4CAF50;
-  --color-warning: #E0A800;
-  --color-error: #DC2626;
-  --color-info: #2563EB;
+/* Layout */
+--color-bg: #F5F5F0;
+--color-surface: #FFFFFF;
+--color-surface-alt: #FAFAF5;
+--color-border: #E0E0DD;
+
+/* Text */
+--color-text-primary: #1A1A1A;
+--color-text-secondary: #4A4A4A;
+--color-text-muted: #6B6B6B;
+--color-text-disabled: #9E9E9E;
+
+/* States */
+--color-success: #66BB6A;
+--color-warning: #FFA726;
+--color-error: #EF5350;
+--color-info: #42A5F5;
+
+
+/* ========================================
+     DARK MODE COLORS
+   ======================================== */
+
+/* Primary Brand - Brighter Sage (dark mode) */
+--color-primary-dark-mode: #9CCC65;
+--color-primary-hover-dark-mode: #8BC34A;
+
+/* Secondary - Warm Dark Surface */
+--color-secondary-dark-mode: #3E3E36;
+--color-secondary-hover-dark-mode: #4A4A42;
+
+/* Accent Colors (dark mode adjusted) */
+--color-accent-tomato-dark-mode: #EF5350;
+--color-accent-carrot-dark-mode: #FFB74D;
+--color-accent-blueberry-dark-mode: #42A5F5;
+--color-accent-lemon-dark-mode: #FFF176;
+--color-accent-eggplant-dark-mode: #BA68C8;
+
+/* Layout (dark mode) */
+--color-bg-dark-mode: #171717;
+--color-surface-dark-mode: #1F1F1F;
+--color-surface-alt-dark-mode: #242424;
+--color-border-dark-mode: #2E2E2E;
+
+/* Text (dark mode) */
+--color-text-primary-dark-mode: #F5F5F5;
+--color-text-secondary-dark-mode: #B3B3B3;
+--color-text-muted-dark-mode: #808080;
+--color-text-disabled-dark-mode: #5E5E5E;
+
+/* States (dark mode) */
+--color-success-dark-mode: #81C784;
+--color-warning-dark-mode: #FFB74D;
+--color-error-dark-mode: #E57373;
+--color-info-dark-mode: #64B5F6;
+
+
+
+
+
 
   /* Fonts */
   --font-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
@@ -47,6 +107,35 @@
   --shadow-custom:
     0 2px 4px rgba(0, 0, 20, 0.08),
     0 1px 2px rgba(0, 0, 20, 0.08);
+}
+
+/* Dark mode utility class */
+.dark {
+  --color-primary: var(--color-primary-dark-mode);
+  --color-primary-hover: var(--color-primary-hover-dark-mode);
+  --color-secondary: var(--color-secondary-dark-mode);
+  --color-secondary-hover: var(--color-secondary-hover-dark-mode);
+
+  --color-accent-tomato: var(--color-accent-tomato-dark-mode);
+  --color-accent-carrot: var(--color-accent-carrot-dark-mode);
+  --color-accent-blueberry: var(--color-accent-blueberry-dark-mode);
+  --color-accent-lemon: var(--color-accent-lemon-dark-mode);
+  --color-accent-eggplant: var(--color-accent-eggplant-dark-mode);
+
+  --color-bg: var(--color-bg-dark-mode);
+  --color-surface: var(--color-surface-dark-mode);
+  --color-surface-alt: var(--color-surface-alt-dark-mode);
+  --color-border: var(--color-border-dark-mode);
+
+  --color-text-primary: var(--color-text-primary-dark-mode);
+  --color-text-secondary: var(--color-text-secondary-dark-mode);
+  --color-text-muted: var(--color-text-muted-dark-mode);
+  --color-text-disabled: var(--color-text-disabled-dark-mode);
+
+  --color-success: var(--color-success-dark-mode);
+  --color-warning: var(--color-warning-dark-mode);
+  --color-error: var(--color-error-dark-mode);
+  --color-info: var(--color-info-dark-mode);
 }
 
 @utility container {

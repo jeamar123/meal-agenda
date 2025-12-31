@@ -17,7 +17,15 @@ class RoleSeeder extends Seeder
         'activity_log:view',
         'activity_log:create',
         'activity_log:update',
-        'activity_log:delete'
+        'activity_log:delete',
+        'meal:view',
+        'meal:create',
+        'meal:update',
+        'meal:delete',
+        'household_member:view',
+        'household_member:create',
+        'household_member:update',
+        'household_member:delete'
     ];
 
     protected const ROLES = [

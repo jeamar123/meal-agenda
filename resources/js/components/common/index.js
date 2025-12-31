@@ -12,6 +12,7 @@ import NotificationAlert from './NotificationAlert.vue'
 import Heroicons from './Heroicons.js'
 import Icon from './Icon.vue'
 import Tooltip from './Tooltip.vue'
+import FAB from './FAB.vue'
 
 export {
   Card,
@@ -28,4 +29,5 @@ export {
   Heroicons,
   Icon,
   Tooltip,
+  FAB,
 }

@@ -19,7 +19,6 @@ class UserSeeder extends Seeder
             'email' => 'super@admin.com',
             'username' => 'super_admin',
             'password' => 'password',
-            // 'role' => Role::SUPER_ADMIN->value,
             'role' => 'super_admin',
         ],
         [
@@ -28,7 +27,6 @@ class UserSeeder extends Seeder
             'email' => 'user@example.com',
             'username' => 'user',
             'password' => 'password',
-            // 'role' => Role::USER->value,
             'role' => 'user',
         ],
     ];

@@ -4,7 +4,7 @@ export const useNavigation = () => {
       {
         label: 'Home',
         route: 'calendar.index',
-        component: 'CalendarPage',
+        component: 'Home',
         icon: 'HomeIcon',
       },
       {

@@ -162,6 +162,8 @@ return [
 
         // Modules
         App\Modules\User\Providers\RouteServiceProvider::class,
+        App\Modules\HouseholdMember\Providers\RouteServiceProvider::class,
+        App\Modules\Meal\Providers\RouteServiceProvider::class,
 
         /*
          * Application Service Providers...

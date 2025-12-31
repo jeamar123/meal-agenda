@@ -1,8 +1,8 @@
 <template>
-  <div class="bg-bg px-4 pt-4 border-b border-border">
+  <div class="px-4 pt-4 border-b border-border">
     <div class="flex justify-between items-center mb-3">
       <button
-        class="px-3 py-1 rounded bg-secondary text-text-primary hover:bg-secondary-hover"
+        class="px-4 py-1 rounded bg-secondary border border-secondary-hover text-text-primary hover:bg-secondary-hover"
         @click="prevMonth"
       >
         Prev
@@ -20,7 +20,7 @@
         <ChevronDownIcon class="w-4 h-4" />
       </button>
       <button
-        class="px-3 py-1 rounded bg-secondary text-text-primary hover:bg-secondary-hover"
+        class="px-4 py-1 rounded bg-secondary border border-secondary-hover text-text-primary hover:bg-secondary-hover"
         @click="nextMonth"
       >
         Next
@@ -28,21 +28,21 @@
     </div>
 
     <div ref="scrollerRef" class="flex gap-2 overflow-x-auto no-scrollbar pb-3">
-        <button
-          v-for="date in dates"
-          :key="date.toISOString()"
-          :data-selected="isSameDay(date, selectedDate)"
-          @click="selectDate(date)"
-          class="w-14 h-14 flex flex-col items-center justify-center rounded-xl border shrink-0 transition"
-          :class="isToday(date)
-            ? 'bg-primary text-white border-primary'
-            : isSameDay(date, selectedDate)
-              ? 'bg-secondary text-text-primary border-secondary-hover'
-              : 'bg-surface border-border text-text-muted'"
-        >
-          <span class="text-xs">{{ format(date, 'EEE') }}</span>
-          <span class="font-semibold">{{ format(date, 'd') }}</span>
-        </button>
+      <button
+        v-for="date in dates"
+        :key="date.toISOString()"
+        :data-selected="isSameDay(date, selectedDate)"
+        @click="selectDate(date)"
+        class="w-14 h-14 flex flex-col items-center justify-center rounded-xl border shrink-0 transition hover:bg-secondary hover:border-secondary-hover"
+        :class="isToday(date)
+          ? 'bg-primary hover:bg-primary! text-white border-primary'
+          : isSameDay(date, selectedDate)
+            ? 'bg-secondary text-text-primary border-secondary-hover'
+            : 'bg-surface border-border text-text-muted'"
+      >
+        <span class="text-xs">{{ format(date, 'EEE') }}</span>
+        <span class="font-semibold">{{ format(date, 'd') }}</span>
+      </button>
     </div>
 
     <!-- Month Picker Modal -->
