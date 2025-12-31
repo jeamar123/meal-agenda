@@ -32,8 +32,9 @@
 
     <!-- Meal Form Modal -->
     <MealFormModal
+      v-if="showMealModal"
       ref="mealFormModalRef"
-      :show="showMealModal"
+      :show="true"
       :meal="selectedMeal"
       :household-members="householdMembers"
       :date="formattedSelectedDate"

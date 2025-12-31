@@ -45,7 +45,7 @@
                 <SelectDropdown
                   v-model="form.meal_type"
                   label="Meal Type"
-                  :options="mealTypeOptions"
+                  :items="mealTypeOptions"
                   keyValue="value"
                   keyLabel="label"
                   placeholder="Select meal type"
@@ -66,7 +66,7 @@
                 <SelectDropdown
                   v-model="form.assigned_to_id"
                   label="Assigned To"
-                  :options="householdMemberOptions"
+                  :items="householdMemberOptions"
                   keyValue="id"
                   keyLabel="name"
                   placeholder="Select household member"
