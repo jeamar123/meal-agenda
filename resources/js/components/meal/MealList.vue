@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import MealCard from './MealCard.vue'
+import MealCard from '@/Components/Meal/MealCard.vue'
 
 defineProps({
   meals: {

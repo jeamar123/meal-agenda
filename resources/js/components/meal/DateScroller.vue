@@ -59,7 +59,7 @@
 import { ref, computed, watch, nextTick } from 'vue'
 import { format, startOfMonth, endOfMonth, addDays, isToday, isSameDay } from 'date-fns'
 import { ChevronDownIcon } from '@heroicons/vue/24/outline'
-import MonthPickerModal from '@/Components/MonthPickerModal.vue'
+import MonthPickerModal from '@/Components/Meal/MonthPickerModal.vue'
 
 const props = defineProps({
   modelValue: {

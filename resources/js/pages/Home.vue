@@ -56,11 +56,11 @@
 import { ref, computed, watch, onMounted } from 'vue'
 import axios from 'axios'
 import { format } from 'date-fns'
-import DateScroller from '@/Components/DateScroller.vue'
-import MealList from '@/Components/meal/MealList.vue'
-import MealFormModal from '@/Components/meal/MealFormModal.vue'
-import DeleteMealModal from '@/Components/meal/DeleteMealModal.vue'
-import FAB from '@/Components/common/FAB.vue'
+import DateScroller from '@/Components/Meal/DateScroller.vue'
+import MealList from '@/Components/Meal/MealList.vue'
+import MealFormModal from '@/Components/Meal/MealFormModal.vue'
+import DeleteMealModal from '@/Components/Meal/DeleteMealModal.vue'
+import FAB from '@/Components/Meal/FAB.vue'
 
 const props = defineProps({
   householdMembers: {
@@ -84,7 +84,7 @@ const formattedSelectedDate = computed(() => {
 })
 
 // Methods
-async function fetchMeals() {
+const fetchMeals = async () => {
   loading.value = true
   try {
     const response = await axios.get('/meal', {
@@ -101,32 +101,30 @@ async function fetchMeals() {
   }
 }
 
-function handleCreate() {
+const handleCreate = () => {
   selectedMeal.value = null
   showMealModal.value = true
 }
 
-function handleEdit(meal) {
+const handleEdit = (meal) => {
   selectedMeal.value = meal
   showMealModal.value = true
 }
 
-function closeMealModal() {
+const closeMealModal = () => {
   showMealModal.value = false
   selectedMeal.value = null
 }
 
-async function handleSaveMeal(formData) {
+const handleSaveMeal = async (formData) => {
   if (mealFormModalRef.value) {
     mealFormModalRef.value.setLoading(true)
   }
 
   try {
     if (formData.id) {
-      // Update existing meal
       await axios.patch(`/meal/${formData.id}`, formData)
     } else {
-      // Create new meal
       await axios.post('/meal', formData)
     }
 
@@ -140,7 +138,7 @@ async function handleSaveMeal(formData) {
         mealFormModalRef.value.setErrors(error.response.data.errors)
       }
     } else {
-      // alert('Failed to save meal. Please try again.')
+      console.log('Failed to save meal. Please try again.')
     }
   } finally {
     if (mealFormModalRef.value) {
@@ -149,12 +147,12 @@ async function handleSaveMeal(formData) {
   }
 }
 
-function handleDeleteClick(meal) {
+const handleDeleteClick = (meal) => {
   selectedMeal.value = meal
   showDeleteModal.value = true
 }
 
-async function handleDeleteConfirm() {
+const handleDeleteConfirm = async () => {
   if (!selectedMeal.value) return
 
   try {
@@ -164,26 +162,22 @@ async function handleDeleteConfirm() {
     selectedMeal.value = null
   } catch (error) {
     console.error('Error deleting meal:', error)
-    // alert('Failed to delete meal. Please try again.')
   }
 }
 
-async function handleDuplicate(meal) {
+const handleDuplicate = async (meal) => {
   try {
     await axios.post(`/meal/${meal.id}/duplicate`)
     await fetchMeals()
   } catch (error) {
     console.error('Error duplicating meal:', error)
-    // alert('Failed to duplicate meal. Please try again.')
   }
 }
 
-// Watchers
 watch(selectedDate, () => {
   fetchMeals()
 }, { immediate: false })
 
-// Lifecycle
 onMounted(() => {
   fetchMeals()
 })

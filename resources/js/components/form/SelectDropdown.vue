@@ -4,7 +4,7 @@
       <label
         v-if="label"
         class="form-label"
-        :class="[{ 'text-gray-500 cursor-not-allowed': readOnly }, labelClass]"
+        :class="[{ 'cursor-not-allowed': readOnly }, labelClass]"
         :for="id"
         >{{ label }}<span v-if="required">*</span></label
       >
@@ -20,11 +20,11 @@
       >
         <div class="relative">
           <ListboxButton
-            class="select-dropdown-button relative w-full focus:outline-none min-h-[44px] border border-slate-500 block rounded-md px-3 py-[9px] outline-none text-sm transition-all md:text-base text-left"
+            class="form-element-dropdown select-dropdown-button relative w-full focus:outline-none min-h-11 border border-border block rounded-md px-3 py-2 outline-none transition-all text-left"
             :class="[
               error && '!border-red-500',
               readOnly && 'opacity-80 !bg-slate-50 cursor-not-allowed',
-              !readOnly && 'focus:border-gray-500',
+              !readOnly && 'focus:border-border',
               buttonClass,
             ]"
           >
@@ -35,7 +35,7 @@
               class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
             >
               <ChevronUpDownIcon
-                class="h-5 w-5 text-gray-400"
+                class="h-5 w-5"
                 aria-hidden="true"
               />
             </span>
@@ -47,23 +47,23 @@
             leave-to-class="opacity-0"
           >
             <ListboxOptions
-              class="absolute border border-gray-500 w-full rounded-md bg-slate-900 z-[5] outline-none text-sm"
+              class="absolute border border-border w-full rounded-md z-5 outline-none text-sm bg-white"
               :class="[
                 dropdownDirection === 'bottom'
-                  ? 'md:top-[45px]'
-                  : 'bottom-[45px]',
+                  ? 'md:top-11'
+                  : 'bottom-11',
               ]"
             >
               <div v-if="search">
                 <input
                   v-model="searchText"
-                  class="w-full bg-gray-50 border-b border-form-border px-2 py-2 outline-none text-sm read-only:border-gray-200 read-only:text-gray-500 read-only:cursor-not-allowed block autofill:!bg-white transition-all text-slate-800"
+                  class="w-full border-b border-form-border px-2 py-2 outline-none text-sm read-only:border-gray-200 read-only:text-gray-500 read-only:cursor-not-allowed block autofill:!bg-white transition-all"
                   placeholder="Search"
                 />
               </div>
               <p
                 v-if="!filteredItems.length"
-                class="text-center italic py-2 text-gray-500"
+                class="text-center italic py-2"
               >
                 No items
               </p>
@@ -81,7 +81,7 @@
                       item === modelValue
                         ? 'bg-primary text-white'
                         : 'hover:bg-primary hover:text-white',
-                      'relative select-none p-2 border-b border-gray-500 outline-none',
+                      'relative select-none p-2 border-b border-border outline-none',
                     ]"
                   >
                     {{

@@ -5,6 +5,7 @@ import SelectDropdown from './SelectDropdown.vue'
 // import DatepickerInput from './DatepickerInput.vue'
 import Toggle from './Toggle.vue'
 import RangeSlider from './RangeSlider.vue'
+import TimePickerInput from './TimePickerInput.vue'
 // import ColorPicker from './ColorPicker.vue'
 
 export {
@@ -16,4 +17,5 @@ export {
   Toggle,
   RangeSlider,
   // ColorPicker,
+  TimePickerInput
 }
