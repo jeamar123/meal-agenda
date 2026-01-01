@@ -5,6 +5,7 @@ namespace App\Modules\Meal\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Modules\HouseholdMember\Http\Resources\HouseholdMemberResource;
+use App\Modules\Recipe\Http\Resources\RecipeResource;
 
 class MealResource extends JsonResource
 {
@@ -20,6 +21,9 @@ class MealResource extends JsonResource
             'calories' => $this->calories,
             'assigned_to' => $this->whenLoaded('assignedTo', function () {
                 return $this->assignedTo ? new HouseholdMemberResource($this->assignedTo) : null;
+            }),
+            'recipe' => $this->whenLoaded('recipe', function () {
+                return $this->recipe ? new RecipeResource($this->recipe) : null;
             }),
             'created_at' => $this->created_at?->toISOString(),
             'updated_at' => $this->updated_at?->toISOString(),

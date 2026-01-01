@@ -21,6 +21,7 @@ class CreateMealRequest extends FormRequest
             'date' => 'required|date',
             'time' => 'nullable|date_format:H:i',
             'assigned_to_id' => 'nullable|uuid|exists:household_members,id',
+            'recipe_id' => 'nullable|uuid|exists:recipes,id',
             'notes' => 'nullable|string',
             'calories' => 'nullable|integer|min:0',
         ];

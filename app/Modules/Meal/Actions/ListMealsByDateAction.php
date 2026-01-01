@@ -9,7 +9,7 @@ class ListMealsByDateAction
 {
     public function execute(string $userId, string $date): Collection
     {
-        return Meal::with('assignedTo')
+        return Meal::with(['assignedTo', 'recipe'])
             ->forUser($userId)
             ->forDate($date)
             ->orderedByTime()

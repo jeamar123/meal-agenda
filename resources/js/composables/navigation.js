@@ -9,7 +9,7 @@ export const useNavigation = () => {
       },
       {
         label: 'Recipes',
-        route: 'calendar.index',
+        route: 'recipes.index',
         component: 'RecipesPage',
         icon: 'BookOpenIcon',
       },

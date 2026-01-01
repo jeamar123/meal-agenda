@@ -20,6 +20,7 @@ class Meal extends Model
         'meal_type',
         'time',
         'assigned_to_id',
+        'recipe_id',
         'notes',
         'calories',
     ];
@@ -44,6 +45,14 @@ class Meal extends Model
     public function assignedTo()
     {
         return $this->belongsTo(HouseholdMember::class, 'assigned_to_id');
+    }
+
+    /**
+     * Get the recipe for this meal.
+     */
+    public function recipe()
+    {
+        return $this->belongsTo(\App\Modules\Recipe\Models\Recipe::class);
     }
 
     /**

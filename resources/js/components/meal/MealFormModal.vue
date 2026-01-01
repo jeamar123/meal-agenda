@@ -54,6 +54,17 @@
         :error="errors.assigned_to_id"
       />
 
+      <!-- Recipe -->
+      <SelectDropdown
+        v-model="form.recipe_id"
+        label="Recipe (Optional)"
+        :items="recipeOptions"
+        keyValue="id"
+        keyLabel="name"
+        placeholder="Select a recipe"
+        :error="errors.recipe_id"
+      />
+
       <!-- Calories -->
       <TextInput
         v-model="form.calories"
@@ -112,6 +123,10 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  recipes: {
+    type: Array,
+    default: () => [],
+  },
   date: {
     type: String,
     required: true,
@@ -137,6 +152,13 @@ const householdMemberOptions = computed(() => {
   ]
 })
 
+const recipeOptions = computed(() => {
+  return [
+    { id: null, name: 'No recipe' },
+    ...props.recipes,
+  ]
+})
+
 const isEditMode = computed(() => !!props.meal)
 
 const form = ref({
@@ -144,6 +166,7 @@ const form = ref({
   meal_type: '',
   time: '',
   assigned_to_id: null,
+  recipe_id: null,
   calories: '',
   notes: '',
   date: props.date,
@@ -160,6 +183,7 @@ watch(() => props.show, (newValue) => {
         meal_type: props.meal.meal_type,
         time: props.meal.time || '',
         assigned_to_id: props.meal.assigned_to?.id || null,
+        recipe_id: props.meal.recipe?.id || null,
         calories: props.meal.calories || '',
         notes: props.meal.notes || '',
         date: props.meal.date,
@@ -176,6 +200,7 @@ function resetForm() {
     meal_type: '',
     time: '',
     assigned_to_id: null,
+    recipe_id: null,
     calories: '',
     notes: '',
     date: props.date,

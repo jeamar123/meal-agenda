@@ -37,6 +37,7 @@
       :show="true"
       :meal="selectedMeal"
       :household-members="householdMembers"
+      :recipes="recipes"
       :date="formattedSelectedDate"
       @close="closeMealModal"
       @save="handleSaveMeal"
@@ -67,7 +68,13 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  recipes: {
+    type: Array,
+    default: () => [],
+  },
 })
+
+console.log(props)
 
 // State
 const selectedDate = ref(new Date())
