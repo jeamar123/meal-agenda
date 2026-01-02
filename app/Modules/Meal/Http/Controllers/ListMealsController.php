@@ -8,7 +8,7 @@ use App\Modules\Meal\Http\Resources\MealResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ListMealsByDateController extends Controller
+class ListMealsController extends Controller
 {
     public function __invoke(Request $request, ListMealsByDateAction $action)
     {

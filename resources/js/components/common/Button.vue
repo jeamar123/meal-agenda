@@ -42,7 +42,7 @@ const props = defineProps({
 
 const getClasses = () => {
   let defaultClasses =
-    'inline-block py-2 px-4 rounded-md border text-sm font-semibold hover:opacity-70 outline-none hover-transition'
+    'inline-block py-2 px-4 rounded-md border text-sm font-semibold hover:opacity-70 outline-none transition-all duration-200 hover-transition active:scale-95 shadow-lg'
   let classes = ''
 
   switch (props.variant) {
@@ -63,7 +63,7 @@ const getClasses = () => {
       break
     case 'primary':
     default:
-      classes = 'bg-primary border-primary text-white'
+      classes = 'bg-primary hover:bg-primary-hover text-white'
       break
   }
 

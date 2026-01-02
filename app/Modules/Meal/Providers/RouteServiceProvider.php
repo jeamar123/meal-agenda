@@ -10,10 +10,11 @@ class RouteServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->routes(function () {
-            Route::middleware(['web'])
+            Route::prefix('meal')
+                ->middleware(['web', 'auth'])
                 ->group(__DIR__ . '/../routes/web.php');
 
-            Route::prefix('api')
+            Route::prefix('meal/api')
                 ->middleware(['api'])
                 ->group(__DIR__ . '/../routes/api.php');
         });

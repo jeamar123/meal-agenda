@@ -3,7 +3,7 @@ export const useNavigation = () => {
     main: [
       {
         label: 'Home',
-        route: 'calendar.index',
+        route: 'meal.index',
         component: 'Home',
         icon: 'HomeIcon',
       },
@@ -15,7 +15,7 @@ export const useNavigation = () => {
       },
       {
         label: 'People',
-        route: 'calendar.index',
+        route: 'meal.index',
         component: 'PeoplePage',
         icon: 'UsersIcon',
       },
@@ -23,7 +23,7 @@ export const useNavigation = () => {
     secondary: [
       {
         label: 'Settings',
-        route: 'calendar.index',
+        route: 'meal.index',
         component: 'SettingsPage',
         icon: 'Cog6ToothIcon',
         divider: true,

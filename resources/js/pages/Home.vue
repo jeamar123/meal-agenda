@@ -27,7 +27,13 @@
       </div>
 
       <!-- FAB -->
-      <FAB @click="handleCreate" />
+      <Button
+        @click="handleCreate"
+        class="fixed bottom-5 right-5 w-14 h-14 rounded-full! text-2xl! z-50 flex items-center justify-center"
+        aria-label="Add new meal"
+      >
+        +
+      </Button>
     </div>
 
     <!-- Meal Form Modal -->
@@ -36,7 +42,7 @@
       ref="mealFormModalRef"
       :show="true"
       :meal="selectedMeal"
-      :household-members="householdMembers"
+      :members="members"
       :recipes="recipes"
       :date="formattedSelectedDate"
       @close="closeMealModal"
@@ -54,6 +60,7 @@
 </template>
 
 <script setup>
+import AppHead from '@/Components/AppHead.vue'
 import { ref, computed, watch, onMounted } from 'vue'
 import axios from 'axios'
 import { format } from 'date-fns'
@@ -61,53 +68,48 @@ import DateScroller from '@/Components/Meal/DateScroller.vue'
 import MealList from '@/Components/Meal/MealList.vue'
 import MealFormModal from '@/Components/Meal/MealFormModal.vue'
 import DeleteMealModal from '@/Components/Meal/DeleteMealModal.vue'
-import FAB from '@/Components/Meal/FAB.vue'
+import { Button } from '@/Components/common'
+import { router, useForm } from '@inertiajs/vue3'
+import { useRoute, useQueryParam } from '@/composables/route'
 
 const props = defineProps({
-  householdMembers: {
+  meals: {
     type: Array,
-    default: () => [],
+    default: () => ([]),
+  },
+  members: {
+    type: Array,
+    default: () => ([]),
   },
   recipes: {
     type: Array,
-    default: () => [],
+    default: () => ([]),
   },
 })
-
 console.log(props)
 
 // State
 const selectedDate = ref(new Date())
-const meals = ref([])
 const loading = ref(false)
 const showMealModal = ref(false)
 const showDeleteModal = ref(false)
 const selectedMeal = ref(null)
 const mealFormModalRef = ref(null)
+let queryParams = useQueryParam()
 
 // Computed
 const formattedSelectedDate = computed(() => {
   return format(selectedDate.value, 'yyyy-MM-dd')
 })
 
-// Methods
-const fetchMeals = async () => {
-  loading.value = true
-  try {
-    const response = await axios.get('/meal', {
-      params: {
-        date: formattedSelectedDate.value,
-      },
-    })
-    meals.value = response.data.data
-  } catch (error) {
-    console.error('Error fetching meals:', error)
-    // alert('Failed to load meals. Please try again.')
-  } finally {
-    loading.value = false
+// Lifecycles
+onMounted(() => {
+  if(queryParams.date){
+    selectedDate.value = queryParams.date ? new Date(queryParams.date) : new Date()
   }
-}
+})
 
+// Methods
 const handleCreate = () => {
   selectedMeal.value = null
   showMealModal.value = true
@@ -135,7 +137,7 @@ const handleSaveMeal = async (formData) => {
       await axios.post('/meal', formData)
     }
 
-    await fetchMeals()
+    // await fetchMeals()
     closeMealModal()
   } catch (error) {
     console.error('Error saving meal:', error)
@@ -164,7 +166,7 @@ const handleDeleteConfirm = async () => {
 
   try {
     await axios.delete(`/meal/${selectedMeal.value.id}`)
-    await fetchMeals()
+    // await fetchMeals()
     showDeleteModal.value = false
     selectedMeal.value = null
   } catch (error) {
@@ -175,17 +177,29 @@ const handleDeleteConfirm = async () => {
 const handleDuplicate = async (meal) => {
   try {
     await axios.post(`/meal/${meal.id}/duplicate`)
-    await fetchMeals()
+    // await fetchMeals()
   } catch (error) {
     console.error('Error duplicating meal:', error)
   }
 }
 
-watch(selectedDate, () => {
-  fetchMeals()
-}, { immediate: false })
+const setDate = (date) => {
+  router.get(
+    useRoute('meal.index'),
+    { date },
+    {
+      preserveState: true,
+      replace: true,
+    }
+  )
+}
 
-onMounted(() => {
-  fetchMeals()
-})
+watch(
+  selectedDate,
+  () => {
+    console.log(formattedSelectedDate.value)
+    setDate(formattedSelectedDate.value)
+  },
+  { immediate: false }
+)
 </script>

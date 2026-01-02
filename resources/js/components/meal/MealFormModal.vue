@@ -109,6 +109,8 @@
 import { ref, computed, watch } from 'vue'
 import { Modal } from '@/Components/common'
 import { TextInput, TimePickerInput, SelectDropdown } from '@/Components/form'
+import { usePage, useForm } from '@inertiajs/vue3'
+import { useRoute } from '@/composables/route'
 
 const props = defineProps({
   show: {
@@ -119,7 +121,7 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
-  householdMembers: {
+  members: {
     type: Array,
     default: () => [],
   },
@@ -148,7 +150,7 @@ const mealTypeOptions = [
 const householdMemberOptions = computed(() => {
   return [
     { id: null, name: 'No one' },
-    ...props.householdMembers,
+    ...props.members,
   ]
 })
 
@@ -161,7 +163,7 @@ const recipeOptions = computed(() => {
 
 const isEditMode = computed(() => !!props.meal)
 
-const form = ref({
+const form = useForm({
   name: '',
   meal_type: '',
   time: '',
@@ -174,50 +176,21 @@ const form = ref({
   ...props.meal
 })
 
-watch(() => props.show, (newValue) => {
-  if (newValue) {
-    resetForm()
-    if (props.meal) {
-      form.value = {
-        name: props.meal.name,
-        meal_type: props.meal.meal_type,
-        time: props.meal.time || '',
-        assigned_to_id: props.meal.assigned_to?.id || null,
-        recipe_id: props.meal.recipe?.id || null,
-        calories: props.meal.calories || '',
-        notes: props.meal.notes || '',
-        date: props.meal.date,
-      }
-    } else {
-      form.value.date = props.date
-    }
-  }
-})
-
-function resetForm() {
-  form.value = {
-    name: '',
-    meal_type: '',
-    time: '',
-    assigned_to_id: null,
-    recipe_id: null,
-    calories: '',
-    notes: '',
-    date: props.date,
-  }
+const resetForm = () => {
+  form.reset()
   errors.value = {}
 }
 
-function handleSubmit() {
+const handleSubmit = () => {
   errors.value = {}
 
   // Client-side validation
-  if (!form.value.name) {
+  if (!form.name) {
     errors.value.name = 'Meal name is required'
     return
   }
 
-  if (!form.value.meal_type) {
+  if (!form.meal_type) {
     errors.value.meal_type = 'Meal type is required'
     return
   }
@@ -225,16 +198,25 @@ function handleSubmit() {
   loading.value = true
 
   // Emit the form data with meal ID if editing
-  const data = {
-    ...form.value,
-    calories: form.value.calories ? parseInt(form.value.calories) : null,
-  }
+
+  form.calories = form.calories ? parseInt(form.calories) : null
 
   if (isEditMode.value) {
-    data.id = props.meal.id
+    form.id = props.meal.id
   }
 
-  emit('save', data)
+  // emit('save', data)
+  handleSaveMeal()
+}
+
+const handleSaveMeal = async () => {
+  if (form.id) {
+    form.patch(useRoute('meal.update', { meal: formData.id }))
+  } else {
+    form.post(useRoute('meal.create'))
+  }
+  loading.value = false
+  emit('close')
 }
 
 // Expose setLoading method for parent component
