@@ -100,7 +100,7 @@ const categoryFilterOptions = [
 ]
 
 const filteredRecipes = computed(() => {
-  let filtered = props.recipes?.data
+  let filtered = props.recipes
 
   // Filter by category
   if (selectedCategory.value) {
