@@ -30,7 +30,8 @@ import {
   BarsArrowUpIcon,
   ChevronUpDownIcon,
   FunnelIcon,
-  ArrowPathIcon
+  ArrowPathIcon,
+  PlusCircleIcon
 } from '@heroicons/vue/20/solid'
 
 import {
@@ -138,7 +139,8 @@ const Icon = {
   DocumentMagnifyingGlassIconOutline,
   LockClosedIconOutline,
   ShieldCheckIconOutline,
-  DocumentTextIconOutline
+  DocumentTextIconOutline,
+  PlusCircleIcon
 }
 
 export default Icon

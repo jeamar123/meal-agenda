@@ -25,13 +25,14 @@
     </div>
 
     <!-- Recipe Grid -->
-    <div v-if="filteredRecipes.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div v-if="filteredRecipes?.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <RecipeCard
         v-for="recipe in filteredRecipes"
         :key="recipe.id"
         :recipe="recipe"
         @edit="openEditModal"
         @delete="openDeleteModal"
+        @duplicate="handleDuplicate"
       />
     </div>
 
@@ -80,7 +81,6 @@ import SelectDropdown from '@/Components/form/SelectDropdown.vue'
 const props = defineProps({
   recipes: { type: [Array,Object], default: () => [] },
 })
-console.log(props)
 
 const searchQuery = ref('')
 const selectedCategory = ref('')
@@ -156,6 +156,12 @@ function handleSaveRecipe(data) {
     onFinish: () => {
       recipeFormModalRef.value?.setLoading(false)
     },
+  })
+}
+
+function handleDuplicate(recipe) {
+  router.post(`/recipe/${recipe.id}/duplicate`, {}, {
+    preserveScroll: true,
   })
 }
 

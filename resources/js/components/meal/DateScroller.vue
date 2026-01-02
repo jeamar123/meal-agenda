@@ -35,9 +35,9 @@
         @click="selectDate(date)"
         class="w-14 h-14 flex flex-col items-center justify-center rounded-xl border shrink-0 transition hover:bg-secondary hover:border-secondary-hover"
         :class="isToday(date)
-          ? 'bg-primary hover:bg-primary! text-white border-primary'
+          ? 'bg-primary hover:bg-primary! text-text-primary border-primary'
           : isSameDay(date, selectedDate)
-            ? 'bg-secondary text-text-primary border-secondary-hover'
+            ? 'bg-primary/40 hover:bg-primary/40! text-text-primary border-primary!'
             : 'bg-surface border-border text-text-muted'"
       >
         <span class="text-xs">{{ format(date, 'EEE') }}</span>

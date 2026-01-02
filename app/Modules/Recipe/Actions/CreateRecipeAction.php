@@ -8,8 +8,6 @@ class CreateRecipeAction
 {
     public function execute(array $data): Recipe
     {
-        $data['user_id'] = auth()->id();
-
         return Recipe::create($data);
     }
 }

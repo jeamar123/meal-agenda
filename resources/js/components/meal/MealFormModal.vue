@@ -35,16 +35,16 @@
       />
 
       <!-- Time -->
-      <TimePickerInput
+      <!-- <TimePickerInput
         v-model="form.time"
         label="Time"
         type="time"
         placeholder="12:30"
         :error="errors.time"
-      />
+      /> -->
 
       <!-- Assigned To -->
-      <SelectDropdown
+      <!-- <SelectDropdown
         v-model="form.assigned_to_id"
         label="Assigned (Optional)"
         :items="householdMemberOptions"
@@ -52,12 +52,12 @@
         keyLabel="name"
         placeholder="Select household member"
         :error="errors.assigned_to_id"
-      />
+      /> -->
 
       <!-- Recipe -->
       <SelectDropdown
         v-model="form.recipe_id"
-        label="Recipe (Optional)"
+        label="Recipe"
         :items="recipeOptions"
         keyValue="id"
         keyLabel="name"
@@ -66,23 +66,23 @@
       />
 
       <!-- Calories -->
-      <TextInput
+      <!-- <TextInput
         v-model="form.calories"
         label="Calories (Optional)"
         type="number"
         placeholder="450"
         :error="errors.calories"
-      />
+      /> -->
 
       <!-- Notes -->
-      <TextInput
+      <!-- <TextInput
         v-model="form.notes"
         label="Notes (Optional)"
         as="textarea"
         placeholder="Additional notes about the meal..."
         :error="errors.notes"
         inputClass="resize-none h-20"
-      />
+      /> -->
 
       <!-- Buttons -->
       <div class="flex gap-3 justify-end pt-2">
@@ -187,13 +187,17 @@ const handleSubmit = () => {
   // Client-side validation
   if (!form.name) {
     errors.value.name = 'Meal name is required'
-    return
   }
 
   if (!form.meal_type) {
     errors.value.meal_type = 'Meal type is required'
-    return
   }
+
+  // if (!form.recipe_id) {
+  //   errors.value.recipe_id = 'Recipe is required'
+  // }
+
+  if(Object.values(errors.value).length) return
 
   loading.value = true
 
@@ -205,18 +209,7 @@ const handleSubmit = () => {
     form.id = props.meal.id
   }
 
-  // emit('save', data)
-  handleSaveMeal()
-}
-
-const handleSaveMeal = async () => {
-  if (form.id) {
-    form.patch(useRoute('meal.update', { meal: formData.id }))
-  } else {
-    form.post(useRoute('meal.create'))
-  }
-  loading.value = false
-  emit('close')
+  emit('save', form)
 }
 
 // Expose setLoading method for parent component

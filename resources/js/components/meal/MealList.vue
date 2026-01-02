@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-3">
+  <div class="grid gap-3">
     <MealCard
       v-for="meal in meals"
       :key="meal.id"

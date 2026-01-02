@@ -17,6 +17,6 @@ class CreateMealController extends Controller
     {
         $action->execute($request->validated());
 
-        return success_response(route: route('meal.index'));
+        return success_response(route: route('meal.index', $request->query()));
     }
 }

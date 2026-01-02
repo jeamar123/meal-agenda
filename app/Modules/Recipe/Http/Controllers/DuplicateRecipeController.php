@@ -3,20 +3,22 @@
 namespace App\Modules\Recipe\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Recipe\Actions\UpdateRecipeAction;
-use App\Modules\Recipe\Http\Requests\UpdateRecipeRequest;
+use App\Modules\Recipe\Actions\DuplicateRecipeAction;
 use App\Modules\Recipe\Models\Recipe;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
-class UpdateRecipeController extends Controller
+class DuplicateRecipeController extends Controller
 {
     public function __invoke(
-        UpdateRecipeRequest $request,
+        Request $request,
         Recipe $recipe,
-        UpdateRecipeAction $action
+        DuplicateRecipeAction $action
     ): RedirectResponse
     {
-        $action->execute($recipe, $request->validated());
+        $this->authorize('duplicate', $recipe);
+
+        $action->execute($recipe);
 
         return success_response(route: route('recipes.index', $request->query()));
     }

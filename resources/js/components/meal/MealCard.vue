@@ -3,7 +3,7 @@
     @click="emit('edit', meal)"
     class="bg-surface border border-border rounded-md p-4 active:scale-[0.98] transition cursor-pointer hover:border-primary"
   >
-    <div class="flex justify-between items-start">
+    <div class="flex justify-between items-center">
       <div class="flex-1">
         <p class="font-medium text-text-primary">{{ meal.name }}</p>
         <p class="text-text-muted text-sm mt-0.5">
@@ -16,10 +16,10 @@
       <div class="relative">
         <button
           @click.stop="isMenuOpen = !isMenuOpen"
-          class="text-text-muted text-lg w-8 h-8 flex items-center justify-center rounded hover:bg-secondary transition"
+          class="text-text-muted text-lg w-10 h-10 flex items-center justify-center rounded hover:bg-secondary transition"
           aria-label="Meal options"
         >
-          ⋮
+          <Icon name="EllipsisVerticalIcon" class="w-5" />
         </button>
 
         <!-- Actions Menu -->
@@ -68,6 +68,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { Icon } from '@/Components/common'
 
 const props = defineProps({
   meal: {

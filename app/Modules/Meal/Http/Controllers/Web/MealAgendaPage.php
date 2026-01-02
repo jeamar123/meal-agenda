@@ -30,7 +30,7 @@ class MealAgendaPage extends Controller
         $members = $householdMembersAction->execute($user);
         $recipes = $recipesAction->execute();
 
-        return Inertia::render('Home', [
+        return Inertia::render('Meal/Index', [
             'meals' => MealResource::collection($meals),
             'members' => $members,
             'recipes' => RecipeResource::collection($recipes),

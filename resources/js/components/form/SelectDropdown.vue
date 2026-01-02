@@ -28,7 +28,7 @@
               buttonClass,
             ]"
           >
-            <span class="block truncate">
+            <span class="block truncate" :class="!selectedValue && placeholder ? 'text-gray-400' : ''">
               {{ getLabel }}
             </span>
             <span

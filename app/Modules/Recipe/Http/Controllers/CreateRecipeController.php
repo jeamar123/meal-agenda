@@ -2,18 +2,20 @@
 
 namespace App\Modules\Recipe\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Modules\Recipe\Actions\CreateRecipeAction;
 use App\Modules\Recipe\Http\Requests\CreateRecipeRequest;
-use App\Modules\Recipe\Http\Resources\RecipeResource;
+use Illuminate\Http\RedirectResponse;
 
-class CreateRecipeController
+class CreateRecipeController extends Controller
 {
-    public function __invoke(CreateRecipeRequest $request)
+    public function __invoke(
+        CreateRecipeRequest $request,
+        CreateRecipeAction $action
+    ): RedirectResponse
     {
-        $recipe = app(CreateRecipeAction::class)->execute(
-            $request->validated()
-        );
+        $action->execute($request->validated());
 
-        return new RecipeResource($recipe);
+        return success_response(route: route('recipes.index', $request->query()));
     }
 }

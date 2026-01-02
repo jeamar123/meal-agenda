@@ -1,6 +1,6 @@
 <template>
   <Card class="cursor-pointer hover:shadow-md transition-shadow">
-    <div @click="emit('view', recipe)">
+    <div @click="router.visit(`/recipes/${recipe.id}`)">
       <h3 class="text-lg font-semibold text-text-primary mb-2">
         {{ recipe.name }}
       </h3>
@@ -34,6 +34,12 @@
         Edit
       </button>
       <button
+        @click.stop="emit('duplicate', recipe)"
+        class="flex-1 py-2 text-sm font-medium text-secondary hover:bg-secondary/10 rounded transition"
+      >
+        Duplicate
+      </button>
+      <button
         @click.stop="emit('delete', recipe)"
         class="flex-1 py-2 text-sm font-medium text-error hover:bg-error/10 rounded transition"
       >
@@ -44,6 +50,7 @@
 </template>
 
 <script setup>
+import { router } from '@inertiajs/vue3'
 import { Card } from '@/Components/common'
 
 defineProps({
@@ -53,5 +60,5 @@ defineProps({
   },
 })
 
-const emit = defineEmits(['view', 'edit', 'delete'])
+const emit = defineEmits(['view', 'edit', 'delete', 'duplicate'])
 </script>

@@ -3,12 +3,13 @@
 namespace App\Modules\Recipe\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CreateRecipeRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return Auth::check();
     }
 
     public function rules(): array
@@ -25,5 +26,13 @@ class CreateRecipeRequest extends FormRequest
             'category' => 'nullable|string|max:50',
             'calories' => 'nullable|integer|min:0',
         ];
+    }
+
+    public function validated($key = null, $default = null)
+    {
+        $validated = parent::validated($key, $default);
+        $validated['user_id'] = Auth::id();
+
+        return $validated;
     }
 }
